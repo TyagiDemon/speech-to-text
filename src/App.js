@@ -49,36 +49,44 @@ const App = () => {
 	}
 
 	return (
-		<div className="min-h-screen flex flex-col items-center justify-center gap-2 bg-gray-50">
-			<div className="text-lg">Microphone: {listening ? "on" : "off"}</div>
-			<div className="flex gap-4">
+		<div className="min-h-screen flex flex-col">
+			<div className="flex-1 flex flex-col items-center justify-center gap-2">
+				<div className="text-lg">Microphone: {listening ? "on" : "off"}</div>
+				<div className="flex gap-4">
+					<button
+						onClick={SpeechRecognition.startListening}
+						className="bg-green-700 px-4 py-2 rounded-lg text-xl font-bold text-white hover:scale-105 transition"
+					>
+						START
+					</button>
+					<button
+						onClick={SpeechRecognition.stopListening}
+						className="bg-red-700 px-4 py-2 rounded-lg text-xl font-bold text-white hover:scale-105 transition"
+					>
+						STOP
+					</button>
+					<button
+						onClick={() => {
+							resetTranscript();
+							setTranslated("");
+						}}
+						className="bg-blue-700 px-4 py-2 rounded-lg text-xl font-bold text-white hover:scale-105 transition"
+					>
+						RESET
+					</button>
+				</div>
+				<div className="font-mono">{transcript}</div>
 				<button
-					onClick={SpeechRecognition.startListening}
-					className="bg-green-700 px-4 py-2 rounded-lg text-xl font-bold text-white hover:scale-105 transition"
+					onClick={() => convert()}
+					className="p-2 bg-purple-600 rounded-lg text-lime-100 font-semibold text-lg hover:scale-105 transition"
 				>
-					START
+					Convert to Hindi
 				</button>
-				<button
-					onClick={SpeechRecognition.stopListening}
-					className="bg-red-700 px-4 py-2 rounded-lg text-xl font-bold text-white hover:scale-105 transition"
-				>
-					STOP
-				</button>
-				<button
-					onClick={()=>{resetTranscript(); setTranslated("")}}
-					className="bg-blue-700 px-4 py-2 rounded-lg text-xl font-bold text-white hover:scale-105 transition"
-				>
-					RESET
-				</button>
+				<div>{translated}</div>
 			</div>
-			<div className="font-mono">{transcript}</div>
-			<button
-				onClick={() => convert()}
-				className="p-2 bg-purple-600 rounded-lg text-lime-100 font-semibold text-lg hover:scale-105 transition"
-			>
-				Convert to Hindi
-			</button>
-			<div>{translated}</div>
+			<div className="text-center p-2 text-sm font-semibold">
+				Made by <span className="text-blue-600">Karan Tyagi</span>
+			</div>
 		</div>
 	);
 };
